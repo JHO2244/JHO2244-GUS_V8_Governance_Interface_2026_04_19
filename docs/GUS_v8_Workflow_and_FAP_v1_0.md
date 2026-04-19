@@ -1,4 +1,4 @@
-# GUS v8 Governance Interface — Workflow and FAP v1.0
+# GUS v8 Governance Interface — Workflow and FAP v1.1
 
 ## Purpose
 
@@ -37,6 +37,45 @@ Initial direct push to `main` allowed only for repo initialization.
 
 ---
 
+## Seal Discipline Lock (NON-NEGOTIABLE)
+
+UI phases are **not exempt** from sign/seal workflow.
+
+The same integrity discipline used in v7 applies to v8.
+
+### Pre-Merge Order
+
+1. Commit real feature change
+2. Snapshot HEAD
+3. Sign seal
+4. Commit seal files
+5. Strict verify
+6. Push PR branch
+7. Create PR
+8. Merge PR
+
+### Post-Merge Canonicalization Order
+
+1. Sync `main`
+2. Verify feature exists in `main`
+3. Snapshot HEAD
+4. Sign seal
+5. Commit seal files
+6. Strict verify
+7. Push `main`
+
+### Repair Rule
+
+If any phase is merged without required seal/sign discipline:
+
+- STOP feature progression
+- open repair branch
+- restore workflow authority
+- execute missing seal discipline from corrected state
+- only then continue normal phase work
+
+---
+
 ## UI Boundary Law
 
 UI may:
@@ -61,11 +100,11 @@ UI may NOT:
 
 ### Phase 01 — Repo Initialization ✅
 
-### Phase 02 — Design System
+### Phase 02 — Design System ✅
 
 Theme, spacing, typography, trust styling.
 
-### Phase 03 — Home Dashboard
+### Phase 03 — Home Dashboard ✅
 
 ### Phase 04 — Case Input
 
