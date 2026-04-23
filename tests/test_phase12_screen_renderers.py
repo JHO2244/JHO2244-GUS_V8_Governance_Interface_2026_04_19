@@ -28,12 +28,13 @@ def test_phase12_verdict_screen_renderer_builds_cleanly() -> None:
     assert rendered["version"] == "v0.1"
     assert rendered["screen_id"] == "verdict"
     assert rendered["layout_role"] == "decision_chamber"
-    assert len(rendered["panels"]) == 4
+    assert len(rendered["panels"]) == 5
 
-    assert rendered["panels"][0]["title"] == "Governance Verdict"
-    assert rendered["panels"][1]["title"] == "Executive Summary"
-    assert rendered["panels"][2]["title"] == "Decision Sections"
-    assert rendered["panels"][3]["title"] == "Contract Binding"
+    assert rendered["panels"][0]["title"] == "Governance Verdict — PASS"
+    assert rendered["panels"][1]["title"] == "Transparent vendor selection accepted"
+    assert rendered["panels"][2]["title"] == "Reason Codes"
+    assert rendered["panels"][3]["title"] == "Trust State"
+    assert rendered["panels"][4]["title"] == "Contract Binding"
 
 
 def test_phase12_home_dashboard_renderer_uses_trusted_content() -> None:
@@ -48,8 +49,9 @@ def test_phase12_home_dashboard_renderer_uses_trusted_content() -> None:
 def test_phase12_verdict_renderer_uses_trusted_content() -> None:
     rendered = build_verdict_screen_renderer_v0_1()
 
-    assert "Vehicle Authority: GUS v7 Governance Integrity Vehicle (GIV)" in rendered["panels"][0]["body"]
+    assert "Governance review passed" in rendered["panels"][0]["body"]
     assert "Display Mode: READ_ONLY_VERDICT_DISPLAY" in rendered["panels"][0]["body"]
-    assert "Decision-ready verdict display" in rendered["panels"][1]["body"]
-    assert "summary" in rendered["panels"][2]["body"]
-    assert "Contract: governance_verdict_output" in rendered["panels"][3]["body"]
+    assert "The proposed governance action satisfies the current review threshold." in rendered["panels"][1]["body"]
+    assert "EVIDENCE_SUFFICIENT" in rendered["panels"][2]["body"]
+    assert "Verification: VERIFIED" in rendered["panels"][3]["body"]
+    assert "Missing Evidence Count: 0" in rendered["panels"][4]["body"]

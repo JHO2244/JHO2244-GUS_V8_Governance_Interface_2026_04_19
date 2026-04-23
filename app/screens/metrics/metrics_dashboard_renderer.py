@@ -18,7 +18,7 @@ def build_metrics_dashboard_renderer_v0_1() -> dict:
         body=(
             f"Vehicle Authority: {model['backend_authority_label']}",
             f"Display Mode: {model['mode']}",
-            "Operational telemetry and oversight surface",
+            f"Total Cases Reviewed: {model['total_cases_reviewed']}",
         ),
         emphasis="high",
     )
@@ -27,20 +27,20 @@ def build_metrics_dashboard_renderer_v0_1() -> dict:
         card_id="metrics_reporting_window",
         title="Reporting Window",
         body=(
-            "reporting_window",
-            "total_cases_reviewed",
-            "Structured for executive visibility",
+            model["reporting_window"],
+            model["trend_summary"],
         ),
         emphasis="standard",
     )
 
     distribution_trends_panel = build_panel_card_v0_1(
         card_id="metrics_distribution_trends",
-        title="Verdict Distribution and Trends",
+        title="Verdict Distribution",
         body=(
-            "verdict_distribution",
-            "trend_summary",
-            "Built for one-glance telemetry review",
+            f"PASS: {model['verdict_distribution']['PASS']}",
+            f"FAIL: {model['verdict_distribution']['FAIL']}",
+            f"INSUFFICIENT_EVIDENCE: {model['verdict_distribution']['INSUFFICIENT_EVIDENCE']}",
+            f"OUT_OF_SCOPE: {model['verdict_distribution']['OUT_OF_SCOPE']}",
         ),
         emphasis="standard",
     )
@@ -49,9 +49,8 @@ def build_metrics_dashboard_renderer_v0_1() -> dict:
         card_id="metrics_usage_refresh",
         title="Usage and Refresh State",
         body=(
-            "usage_summary",
-            "last_updated",
-            "Supports operational monitoring",
+            model["usage_summary"],
+            f"Last Updated: {model['last_updated']}",
         ),
         emphasis="standard",
     )

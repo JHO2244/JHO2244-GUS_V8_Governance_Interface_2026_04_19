@@ -17,13 +17,25 @@ def build_verdict_screen_model_v0_1() -> dict:
         "contract_name": contract["contract_name"],
         "contract_version": contract["contract_version"],
         "allowed_verdicts": contract["allowed_verdicts"],
-        "display_sections": (
-            "verdict_banner",
-            "summary",
-            "reason_codes",
-            "missing_evidence",
-            "trust_state",
-        ),
         "backend_authority_label": "GUS v7 Governance Integrity Vehicle (GIV)",
         "mode": "READ_ONLY_VERDICT_DISPLAY",
+        "verdict_banner": {
+            "verdict": "PASS",
+            "label": "Governance review passed",
+        },
+        "summary": {
+            "headline": "Transparent vendor selection accepted",
+            "statement": "The proposed governance action satisfies the current review threshold.",
+        },
+        "reason_codes": (
+            "EVIDENCE_SUFFICIENT",
+            "PROCESS_TRANSPARENT",
+            "CONFLICT_CHECK_CLEAR",
+        ),
+        "missing_evidence": (),
+        "trust_state": {
+            "verification_state": "VERIFIED",
+            "audit_readiness": "AUDIT_READY",
+            "authority_binding": "BOUND_TO_GIV",
+        },
     }
