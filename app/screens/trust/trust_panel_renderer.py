@@ -16,9 +16,9 @@ def build_trust_panel_renderer_v0_1() -> dict:
         card_id="trust_assurance_overview",
         title=model["title"],
         body=(
-            f"Vehicle Authority: {model['backend_authority_label']}",
+            f"Vehicle Authority: {model['backend_authority']}",
+            f"Backend Version: {model['backend_version']}",
             f"Display Mode: {model['mode']}",
-            "Integrity assurance and verification surface",
         ),
         emphasis="high",
     )
@@ -27,9 +27,9 @@ def build_trust_panel_renderer_v0_1() -> dict:
         card_id="trust_verification_state",
         title="Verification State",
         body=(
-            "verification_state",
-            "seal_state",
-            "last_verified_state",
+            f"Verification State: {model['verification_state']}",
+            f"Seal State: {model['seal_state']}",
+            f"Last Verified State: {model['last_verified_state']}",
         ),
         emphasis="standard",
     )
@@ -38,10 +38,9 @@ def build_trust_panel_renderer_v0_1() -> dict:
         card_id="trust_authority_integrity",
         title="Authority Integrity",
         body=(
-            "backend_authority",
-            "backend_version",
-            "authority_binding",
-            "advisory_mode",
+            f"Authority Binding: {model['authority_binding']}",
+            f"Advisory Mode: {model['advisory_mode']}",
+            "Bound to current governance vehicle authority",
         ),
         emphasis="standard",
     )
@@ -50,7 +49,7 @@ def build_trust_panel_renderer_v0_1() -> dict:
         card_id="trust_audit_readiness",
         title="Audit Readiness",
         body=(
-            "audit_readiness",
+            f"Audit Readiness: {model['audit_readiness']}",
             "Designed for confidence review",
             "Built for governance-grade assurance",
         ),

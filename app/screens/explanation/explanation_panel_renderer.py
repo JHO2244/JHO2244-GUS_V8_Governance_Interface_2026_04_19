@@ -14,11 +14,11 @@ def build_explanation_panel_renderer_v0_1() -> dict:
 
     reasoning_overview_panel = build_panel_card_v0_1(
         card_id="explanation_reasoning_overview",
-        title=model["title"],
+        title=model["summary"]["headline"],
         body=(
+            model["summary"]["statement"],
             f"Vehicle Authority: {model['backend_authority_label']}",
             f"Display Mode: {model['mode']}",
-            "Transparent reasoning and evidence surface",
         ),
         emphasis="high",
     )
@@ -27,9 +27,8 @@ def build_explanation_panel_renderer_v0_1() -> dict:
         card_id="explanation_decisive_reasoning",
         title="Decisive Reasoning",
         body=(
-            "summary",
-            "reason_codes",
-            "decisive_rule",
+            f"Decisive Rule: {model['decisive_rule']}",
+            f"Reason Codes: {', '.join(model['reason_codes'])}",
         ),
         emphasis="standard",
     )
@@ -37,11 +36,7 @@ def build_explanation_panel_renderer_v0_1() -> dict:
     gate_activity_panel = build_panel_card_v0_1(
         card_id="explanation_gate_activity",
         title="Gate Activity",
-        body=(
-            "triggered_gates",
-            "trust_state",
-            "Built for transparent governance review",
-        ),
+        body=model["triggered_gates"],
         emphasis="standard",
     )
 
@@ -49,9 +44,9 @@ def build_explanation_panel_renderer_v0_1() -> dict:
         card_id="explanation_evidence_panel",
         title="Evidence and Gaps",
         body=(
-            "evidence_references",
-            "missing_evidence",
-            "Structured for human-readable analysis",
+            f"Evidence References: {', '.join(model['evidence_references'])}",
+            f"Missing Evidence Count: {len(model['missing_evidence'])}",
+            f"Verification: {model['trust_state']['verification_state']}",
         ),
         emphasis="standard",
     )
@@ -62,6 +57,7 @@ def build_explanation_panel_renderer_v0_1() -> dict:
         body=(
             f"Contract: {model['contract_name']}",
             f"Version: {model['contract_version']}",
+            f"Authority Binding: {model['trust_state']['authority_binding']}",
         ),
         emphasis="standard",
     )
