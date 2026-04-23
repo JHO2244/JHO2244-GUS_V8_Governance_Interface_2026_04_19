@@ -45,22 +45,22 @@ def test_phase11_graphical_shell_renderer_builds_trust_view() -> None:
         "Runtime Shell",
         "ADVISORY_ONLY",
     )
+    assert rendered["top_bar"]["component"] == "top_bar"
 
     assert rendered["navigation"]["title"] == "Navigation"
     assert "Trust | ACTIVE" in rendered["navigation"]["body"]
 
-    assert rendered["active_screen_panel"]["title"] == "Governance Trust Panel"
-    assert rendered["active_screen_panel"]["body"] == (
-        "Route: trust",
-        "Mode: READ_ONLY_TRUST_DISPLAY",
-        "Contract: governance_trust_output",
-    )
+    active = rendered["active_screen_content"]
+    assert active["screen_renderer"] == "trust_panel_renderer"
+    assert active["screen_id"] == "trust"
+    assert active["layout_role"] == "integrity_console"
 
 
 def test_phase11_graphical_shell_renderer_defaults_cleanly() -> None:
     rendered = build_graphical_shell_renderer_v0_1()
 
     assert rendered["renderer_name"] == "graphical_shell_renderer"
-    assert rendered["top_bar"]["component"] == "panel_card"
+    assert rendered["top_bar"]["component"] == "top_bar"
     assert rendered["navigation"]["component"] == "panel_card"
-    assert rendered["active_screen_panel"]["component"] == "panel_card"
+    assert rendered["active_screen_content"]["screen_renderer"] == "home_dashboard_renderer"
+    assert rendered["active_screen_content"]["screen_id"] == "home_dashboard"

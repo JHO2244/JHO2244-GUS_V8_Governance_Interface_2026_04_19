@@ -67,15 +67,17 @@ def test_phase10_screen_router_v0_1_defaults_to_home_dashboard() -> None:
     rendered = render_route_v0_1()
 
     assert rendered["route"] == "home_dashboard"
-    assert rendered["screen_model"]["dashboard_id"] == "home_dashboard"
+    assert rendered["screen_content"]["screen_renderer"] == "home_dashboard_renderer"
+    assert rendered["screen_content"]["screen_id"] == "home_dashboard"
 
 
 def test_phase10_screen_router_v0_1_renders_known_route() -> None:
     rendered = render_route_v0_1("explanation")
 
     assert rendered["route"] == "explanation"
-    assert rendered["screen_model"]["screen_id"] == "explanation"
-    assert rendered["screen_model"]["mode"] == "READ_ONLY_EXPLANATION_DISPLAY"
+    assert rendered["screen_content"]["screen_renderer"] == "explanation_panel_renderer"
+    assert rendered["screen_content"]["screen_id"] == "explanation"
+    assert rendered["screen_content"]["layout_role"] == "reasoning_room"
 
 
 def test_phase10_screen_router_v0_1_fails_closed_on_unknown_route() -> None:
@@ -93,5 +95,6 @@ def test_phase10_runtime_shell_state_v0_1_composes_layout_and_screen() -> None:
     assert shell["shell_version"] == "v0.1"
     assert shell["active_route"] == "trust"
     assert shell["layout"]["layout_name"] == "governance_runtime_shell"
+    assert shell["active_screen"]["screen_renderer"] == "trust_panel_renderer"
     assert shell["active_screen"]["screen_id"] == "trust"
-    assert shell["active_screen"]["mode"] == "READ_ONLY_TRUST_DISPLAY"
+    assert shell["active_screen"]["layout_role"] == "integrity_console"
