@@ -24,5 +24,5 @@ def render_route_v0_1(route_name: str | None = None) -> dict:
 
     return {
         "route": resolved_route,
-        "screen_model": builder(),
+        "screen_content": builder(),
     }

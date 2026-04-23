@@ -16,5 +16,5 @@ def build_runtime_shell_state_v0_1(route_name: str | None = None) -> dict:
         "shell_version": "v0.1",
         "active_route": rendered["route"],
         "layout": layout,
-        "active_screen": rendered["screen_model"],
+        "active_screen": rendered["screen_content"],
     }
