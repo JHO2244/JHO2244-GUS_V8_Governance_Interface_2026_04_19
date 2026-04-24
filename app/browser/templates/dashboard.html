@@ -159,6 +159,34 @@ pre{
     word-wrap:break-word;
     color:var(--soft);
 }
+
+.workflow-next{
+    margin-top:18px;
+    padding:14px;
+    border-radius:14px;
+    background:rgba(59,130,246,.12);
+    border:1px solid rgba(59,130,246,.32);
+}
+.workflow-next span{
+    display:block;
+    color:var(--muted);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    margin-bottom:6px;
+}
+.workflow-next strong{
+    color:var(--text);
+    line-height:1.45;
+}
+.status-stack{
+    margin-top:16px;
+    display:grid;
+    gap:8px;
+    color:var(--soft);
+    font-size:14px;
+}
+
 @media(max-width:900px){
     .wrapper{grid-template-columns:1fr;}
     nav{border-right:0;border-bottom:1px solid var(--line);}
@@ -193,17 +221,26 @@ pre{
 
 <main>
 
-<section class="hero">
+<<section class="hero">
     <div class="card">
-        <h2>{{ view.shell.active_route.replace("_", " ").title() }}</h2>
+        <h2>{{ view.room_guidance.title }}</h2>
         <p class="small">
-            Current room rendered from deterministic runtime shell.
+            {{ view.room_guidance.purpose }}
         </p>
+        <div class="workflow-next">
+            <span>Recommended Next Step</span>
+            <strong>{{ view.room_guidance.next_step }}</strong>
+        </div>
     </div>
 
     <div class="card">
         <h3>Runtime Status</h3>
         <p class="small">No backend mutation · no hidden authority · browser presentation only</p>
+        <div class="status-stack">
+            <div><strong>Mode:</strong> Advisory</div>
+            <div><strong>State:</strong> Deterministic</div>
+            <div><strong>Authority:</strong> Bound to GIV</div>
+        </div>
     </div>
 </section>
 
