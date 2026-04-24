@@ -5,89 +5,244 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ view.app_name }}</title>
 <style>
+:root{
+    --bg:#07111f;
+    --surface:#0f1b2d;
+    --surface-2:#132238;
+    --line:#26364f;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --soft:#cbd5e1;
+    --accent:#3b82f6;
+    --success:#22c55e;
+    --gold:#fbbf24;
+}
+*{box-sizing:border-box;}
 body{
     margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#0f172a;
-    color:#e5e7eb;
+    font-family:Inter,Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(59,130,246,.18), transparent 32%),
+        linear-gradient(135deg,#07111f 0%,#0b1424 55%,#111827 100%);
+    color:var(--text);
 }
 header{
-    padding:18px 24px;
-    background:#111827;
-    border-bottom:1px solid #334155;
+    padding:22px 32px;
+    background:rgba(15,27,45,.88);
+    border-bottom:1px solid var(--line);
+    backdrop-filter:blur(10px);
 }
-header h1{margin:0;font-size:22px;}
-header p{margin:6px 0 0 0;color:#94a3b8;}
+.header-grid{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    align-items:center;
+}
+h1{margin:0;font-size:24px;letter-spacing:.2px;}
+.subtitle{margin:7px 0 0 0;color:var(--muted);font-size:14px;}
+.badge{
+    display:inline-block;
+    padding:8px 12px;
+    border:1px solid rgba(34,197,94,.45);
+    border-radius:999px;
+    color:#bbf7d0;
+    background:rgba(34,197,94,.10);
+    font-size:13px;
+}
 .wrapper{
     display:grid;
-    grid-template-columns:260px 1fr;
-    min-height:calc(100vh - 80px);
+    grid-template-columns:280px 1fr;
+    min-height:calc(100vh - 89px);
 }
 nav{
-    background:#111827;
-    padding:18px;
-    border-right:1px solid #334155;
+    background:rgba(15,27,45,.72);
+    padding:24px 18px;
+    border-right:1px solid var(--line);
+}
+.nav-title{
+    color:var(--muted);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    margin:0 0 14px 8px;
 }
 nav a{
-    display:block;
-    color:#e5e7eb;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:var(--soft);
     text-decoration:none;
-    padding:10px 12px;
-    margin-bottom:8px;
-    border-radius:8px;
-    background:#1e293b;
+    padding:13px 14px;
+    margin-bottom:10px;
+    border-radius:12px;
+    background:rgba(19,34,56,.78);
+    border:1px solid transparent;
 }
-nav a:hover{background:#334155;}
+nav a:hover{
+    border-color:#3b82f6;
+    color:var(--text);
+}
 nav a.active{
-    background:#2563eb;
+    background:linear-gradient(135deg,rgba(37,99,235,.95),rgba(59,130,246,.72));
+    color:white;
+    box-shadow:0 12px 28px rgba(37,99,235,.22);
+}
+.route-pill{
+    font-size:11px;
+    color:rgba(255,255,255,.72);
 }
 main{
-    padding:24px;
+    padding:32px;
+}
+.hero{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:18px;
+    margin-bottom:20px;
 }
 .card{
-    background:#111827;
-    border:1px solid #334155;
-    border-radius:12px;
-    padding:18px;
+    background:rgba(15,27,45,.86);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 20px 45px rgba(0,0,0,.22);
+}
+.card h2,.card h3{
+    margin:0 0 10px 0;
 }
 .small{
-    color:#94a3b8;
+    color:var(--muted);
     font-size:14px;
 }
+.metric-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-bottom:20px;
+}
+.metric{
+    background:rgba(19,34,56,.70);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:16px;
+}
+.metric-label{
+    color:var(--muted);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+}
+.metric-value{
+    margin-top:8px;
+    font-size:18px;
+    font-weight:700;
+}
+.panel{
+    background:rgba(19,34,56,.66);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:16px;
+    margin-top:14px;
+}
+.panel-title{
+    color:var(--text);
+    font-weight:700;
+    margin-bottom:8px;
+}
+.panel-body{
+    color:var(--soft);
+    line-height:1.55;
+}
 pre{
+    margin:0;
     white-space:pre-wrap;
     word-wrap:break-word;
+    color:var(--soft);
+}
+@media(max-width:900px){
+    .wrapper{grid-template-columns:1fr;}
+    nav{border-right:0;border-bottom:1px solid var(--line);}
+    .hero,.metric-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>{{ view.app_name }} {{ view.version }}</h1>
-    <p>Authority: {{ view.authority }}</p>
+    <div class="header-grid">
+        <div>
+            <h1>{{ view.app_name }} {{ view.version }}</h1>
+            <p class="subtitle">Authority: {{ view.authority }}</p>
+        </div>
+        <div class="badge">ADVISORY ONLY · VERIFIED COCKPIT</div>
+    </div>
 </header>
 
 <div class="wrapper">
 
 <nav>
+<p class="nav-title">Governance Rooms</p>
 {% for route in view.allowed_routes %}
 <a href="/room/{{ route }}"
 {% if route == view.shell.active_route %}class="active"{% endif %}>
-{{ route }}
+<span>{{ route.replace("_", " ").title() }}</span>
+<span class="route-pill">{% if route == view.shell.active_route %}ACTIVE{% else %}READY{% endif %}</span>
 </a>
 {% endfor %}
 </nav>
 
 <main>
-<div class="card">
-<h2>Active Room: {{ view.shell.active_route }}</h2>
-<p class="small">
-Renderer: {{ view.shell.active_screen_content.screen_renderer }}
-</p>
-<pre>{{ view.shell.active_screen_content }}</pre>
-</div>
-</main>
 
+<section class="hero">
+    <div class="card">
+        <h2>{{ view.shell.active_route.replace("_", " ").title() }}</h2>
+        <p class="small">
+            Current room rendered from deterministic runtime shell.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>Runtime Status</h3>
+        <p class="small">No backend mutation · no hidden authority · browser presentation only</p>
+    </div>
+</section>
+
+<section class="metric-grid">
+    <div class="metric">
+        <div class="metric-label">Active Route</div>
+        <div class="metric-value">{{ view.shell.active_route }}</div>
+    </div>
+    <div class="metric">
+        <div class="metric-label">Renderer</div>
+        <div class="metric-value">{{ view.shell.active_screen_content.screen_renderer }}</div>
+    </div>
+    <div class="metric">
+        <div class="metric-label">Mode</div>
+        <div class="metric-value">Advisory</div>
+    </div>
+</section>
+
+<section class="card">
+    <h3>Room Payload</h3>
+
+    {% if view.shell.active_screen_content.panels %}
+        {% for panel in view.shell.active_screen_content.panels %}
+        <div class="panel">
+            <div class="panel-title">{{ panel.title }}</div>
+            <div class="panel-body">{{ panel.body }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="panel">
+            <div class="panel-title">{{ view.shell.active_screen_content.screen_id }}</div>
+            <div class="panel-body">
+                <pre>{{ view.shell.active_screen_content }}</pre>
+            </div>
+        </div>
+    {% endif %}
+</section>
+
+</main>
 </div>
 </body>
 </html>
