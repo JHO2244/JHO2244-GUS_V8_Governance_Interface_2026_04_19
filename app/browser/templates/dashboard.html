@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ view.app_name }}</title>
+<style>
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0f172a;
+    color:#e5e7eb;
+}
+header{
+    padding:18px 24px;
+    background:#111827;
+    border-bottom:1px solid #334155;
+}
+header h1{margin:0;font-size:22px;}
+header p{margin:6px 0 0 0;color:#94a3b8;}
+.wrapper{
+    display:grid;
+    grid-template-columns:260px 1fr;
+    min-height:calc(100vh - 80px);
+}
+nav{
+    background:#111827;
+    padding:18px;
+    border-right:1px solid #334155;
+}
+nav a{
+    display:block;
+    color:#e5e7eb;
+    text-decoration:none;
+    padding:10px 12px;
+    margin-bottom:8px;
+    border-radius:8px;
+    background:#1e293b;
+}
+nav a:hover{background:#334155;}
+nav a.active{
+    background:#2563eb;
+}
+main{
+    padding:24px;
+}
+.card{
+    background:#111827;
+    border:1px solid #334155;
+    border-radius:12px;
+    padding:18px;
+}
+.small{
+    color:#94a3b8;
+    font-size:14px;
+}
+pre{
+    white-space:pre-wrap;
+    word-wrap:break-word;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>{{ view.app_name }} {{ view.version }}</h1>
+    <p>Authority: {{ view.authority }}</p>
+</header>
+
+<div class="wrapper">
+
+<nav>
+{% for route in view.allowed_routes %}
+<a href="/room/{{ route }}"
+{% if route == view.shell.active_route %}class="active"{% endif %}>
+{{ route }}
+</a>
+{% endfor %}
+</nav>
+
+<main>
+<div class="card">
+<h2>Active Room: {{ view.shell.active_route }}</h2>
+<p class="small">
+Renderer: {{ view.shell.active_screen_content.screen_renderer }}
+</p>
+<pre>{{ view.shell.active_screen_content }}</pre>
+</div>
+</main>
+
+</div>
+</body>
+</html>
