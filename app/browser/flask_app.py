@@ -1,10 +1,13 @@
 """
 GUS v8 Governance Interface
-Browser Cockpit Boundary v0.2
+Browser Cockpit Boundary v0.3
 """
 
 from flask import Flask, render_template
 
+from app.screens.analytics.executive_insight_model import (
+    build_executive_insight_model_v0_1,
+)
 from app.ui_shell.layout.graphical_shell_renderer import (
     build_graphical_shell_renderer_v0_1,
 )
@@ -44,9 +47,10 @@ ROOM_GUIDANCE = {
     "metrics": {
         "title": "Metrics Room",
         "purpose": "Review governance telemetry and decision distribution signals.",
-        "next_step": "Return Home or begin the next case workflow.",
+        "next_step": "Use Executive Insight to review KPI, risk, and verdict patterns.",
     },
 }
+
 
 def build_display_panels_v0_1(shell: dict) -> tuple[dict, ...]:
     screen = shell["active_screen_content"]
@@ -73,6 +77,13 @@ def build_display_panels_v0_1(shell: dict) -> tuple[dict, ...]:
     return tuple(display_panels)
 
 
+def build_executive_insight_for_route_v0_1(active_route: str) -> dict | None:
+    if active_route != "metrics":
+        return None
+
+    return build_executive_insight_model_v0_1()
+
+
 def build_browser_view_v0_1(route_name: str | None = None) -> dict:
     shell = build_graphical_shell_renderer_v0_1(route_name)
     contract = build_runtime_contract_v0_1()
@@ -80,12 +91,13 @@ def build_browser_view_v0_1(route_name: str | None = None) -> dict:
 
     return {
         "app_name": "GUS Governance Interface",
-        "version": "v0.4",
+        "version": "v0.5",
         "authority": "GUS v7 Governance Integrity Vehicle (GIV)",
         "shell": shell,
         "allowed_routes": contract["allowed_routes"],
         "room_guidance": ROOM_GUIDANCE[active_route],
         "display_panels": build_display_panels_v0_1(shell),
+        "executive_insight": build_executive_insight_for_route_v0_1(active_route),
     }
 
 

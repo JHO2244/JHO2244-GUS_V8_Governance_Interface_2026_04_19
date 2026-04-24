@@ -200,6 +200,54 @@ pre{
     font-size:14px;
 }
 
+.executive-insight{
+    margin-bottom:20px;
+}
+.insight-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-top:16px;
+}
+.insight-kpi{
+    background:rgba(7,17,31,.44);
+    border:1px solid rgba(148,163,184,.18);
+    border-radius:16px;
+    padding:16px;
+}
+.insight-value{
+    margin-top:8px;
+    font-size:24px;
+    font-weight:800;
+}
+.insight-detail{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.45;
+}
+.verdict-bar{
+    margin-top:14px;
+}
+.verdict-row{
+    display:grid;
+    grid-template-columns:190px 1fr 64px;
+    align-items:center;
+    gap:12px;
+    margin-top:10px;
+}
+.bar-track{
+    height:12px;
+    border-radius:999px;
+    background:rgba(148,163,184,.16);
+    overflow:hidden;
+}
+.bar-fill{
+    height:100%;
+    border-radius:999px;
+    background:linear-gradient(90deg,var(--accent),var(--success));
+}
+
 @media(max-width:900px){
     .wrapper{grid-template-columns:1fr;}
     nav{border-right:0;border-bottom:1px solid var(--line);}
@@ -271,6 +319,35 @@ pre{
         <div class="metric-value">Advisory</div>
     </div>
 </section>
+
+{% if view.executive_insight %}
+<section class="card executive-insight">
+    <h3>Executive Insight Layer</h3>
+    <p class="small">{{ view.executive_insight.executive_signal }}</p>
+
+    <div class="insight-grid">
+        {% for kpi in view.executive_insight.kpis %}
+        <div class="insight-kpi">
+            <div class="metric-label">{{ kpi.label }}</div>
+            <div class="insight-value">{{ kpi.value }}</div>
+            <div class="insight-detail">{{ kpi.detail }}</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% for item in view.executive_insight.verdict_bars %}
+    <div class="verdict-bar">
+        <div class="verdict-row">
+            <div>{{ item.label }} ({{ item.count }})</div>
+            <div class="bar-track">
+                <div class="bar-fill" style="width: {{ item.percent }}%;"></div>
+            </div>
+            <div>{{ item.percent }}%</div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
 
 <section class="card">
     <h3>Room Payload</h3>
