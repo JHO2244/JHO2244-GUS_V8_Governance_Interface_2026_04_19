@@ -48,6 +48,30 @@ ROOM_GUIDANCE = {
     },
 }
 
+def build_display_panels_v0_1(shell: dict) -> tuple[dict, ...]:
+    screen = shell["active_screen_content"]
+    panels = screen.get("panels", ())
+
+    display_panels = []
+
+    for panel in panels:
+        body = panel.get("body", ())
+
+        if isinstance(body, (tuple, list)):
+            body_items = tuple(str(item) for item in body)
+        else:
+            body_items = (str(body),)
+
+        display_panels.append(
+            {
+                "title": panel["title"],
+                "items": body_items,
+                "emphasis": panel.get("emphasis", "standard"),
+            }
+        )
+
+    return tuple(display_panels)
+
 
 def build_browser_view_v0_1(route_name: str | None = None) -> dict:
     shell = build_graphical_shell_renderer_v0_1(route_name)
@@ -61,6 +85,7 @@ def build_browser_view_v0_1(route_name: str | None = None) -> dict:
         "shell": shell,
         "allowed_routes": contract["allowed_routes"],
         "room_guidance": ROOM_GUIDANCE[active_route],
+        "display_panels": build_display_panels_v0_1(shell),
     }
 
 

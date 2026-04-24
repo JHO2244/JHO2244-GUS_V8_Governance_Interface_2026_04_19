@@ -153,6 +153,19 @@ main{
     color:var(--soft);
     line-height:1.55;
 }
+.payload-item{
+    padding:10px 12px;
+    margin:8px 0;
+    border-radius:10px;
+    background:rgba(7,17,31,.42);
+    border:1px solid rgba(148,163,184,.16);
+}
+.payload-item:first-child{
+    margin-top:0;
+}
+.payload-item:last-child{
+    margin-bottom:0;
+}
 pre{
     margin:0;
     white-space:pre-wrap;
@@ -262,14 +275,18 @@ pre{
 <section class="card">
     <h3>Room Payload</h3>
 
-    {% if view.shell.active_screen_content.panels %}
-        {% for panel in view.shell.active_screen_content.panels %}
-        <div class="panel">
-            <div class="panel-title">{{ panel.title }}</div>
-            <div class="panel-body">{{ panel.body }}</div>
+    {% if view.display_panels %}
+    {% for panel in view.display_panels %}
+    <div class="panel">
+        <div class="panel-title">{{ panel.title }}</div>
+        <div class="panel-body">
+            {% for item in panel["items"] %}
+            <div class="payload-item">{{ item }}</div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    {% else %}
+    </div>
+    {% endfor %}
+{% else %}
         <div class="panel">
             <div class="panel-title">{{ view.shell.active_screen_content.screen_id }}</div>
             <div class="panel-body">
