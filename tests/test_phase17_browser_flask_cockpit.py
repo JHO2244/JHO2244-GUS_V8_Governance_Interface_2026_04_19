@@ -5,7 +5,7 @@ def test_phase17_browser_view_defaults_to_home_dashboard() -> None:
     view = build_browser_view_v0_1()
 
     assert view["app_name"] == "GUS Governance Interface"
-    assert view["version"] == "v0.5"
+    assert view["version"] == "v0.6"
     assert view["room_guidance"]["title"] == "Executive Home"
     assert "next_step" in view["room_guidance"]
     assert view["authority"] == "GUS v7 Governance Integrity Vehicle (GIV)"

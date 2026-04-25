@@ -1,12 +1,15 @@
 """
 GUS v8 Governance Interface
-Browser Cockpit Boundary v0.3
+Browser Cockpit Boundary v0.4
 """
 
-from flask import Flask, render_template
+from flask import Flask, Response, render_template
 
 from app.screens.analytics.executive_insight_model import (
     build_executive_insight_model_v0_1,
+)
+from app.screens.export.executive_report_exporter import (
+    build_executive_report_text_v0_1,
 )
 from app.ui_shell.layout.graphical_shell_renderer import (
     build_graphical_shell_renderer_v0_1,
@@ -47,7 +50,7 @@ ROOM_GUIDANCE = {
     "metrics": {
         "title": "Metrics Room",
         "purpose": "Review governance telemetry and decision distribution signals.",
-        "next_step": "Use Executive Insight to review KPI, risk, and verdict patterns.",
+        "next_step": "Download the Executive Report or begin the next case workflow.",
     },
 }
 
@@ -91,13 +94,14 @@ def build_browser_view_v0_1(route_name: str | None = None) -> dict:
 
     return {
         "app_name": "GUS Governance Interface",
-        "version": "v0.5",
+        "version": "v0.6",
         "authority": "GUS v7 Governance Integrity Vehicle (GIV)",
         "shell": shell,
         "allowed_routes": contract["allowed_routes"],
         "room_guidance": ROOM_GUIDANCE[active_route],
         "display_panels": build_display_panels_v0_1(shell),
         "executive_insight": build_executive_insight_for_route_v0_1(active_route),
+        "executive_report_download_url": "/export/executive-report.txt",
     }
 
 
@@ -111,6 +115,21 @@ def home():
 def room(route_name: str):
     view = build_browser_view_v0_1(route_name)
     return render_template("dashboard.html", view=view)
+
+
+@app.route("/export/executive-report.txt")
+def executive_report_download():
+    report_text = build_executive_report_text_v0_1()
+
+    return Response(
+        report_text,
+        mimetype="text/plain; charset=utf-8",
+        headers={
+            "Content-Disposition": (
+                "attachment; filename=GUS_v8_executive_report.txt"
+            )
+        },
+    )
 
 
 if __name__ == "__main__":

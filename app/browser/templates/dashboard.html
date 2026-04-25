@@ -192,6 +192,22 @@ pre{
     color:var(--text);
     line-height:1.45;
 }
+.export-action{
+    display:inline-block;
+    margin-top:16px;
+    padding:11px 14px;
+    border-radius:12px;
+    border:1px solid rgba(251,191,36,.42);
+    background:rgba(251,191,36,.12);
+    color:#fde68a;
+    text-decoration:none;
+    font-weight:700;
+    font-size:14px;
+}
+.export-action:hover{
+    border-color:var(--gold);
+    color:white;
+}
 .status-stack{
     margin-top:16px;
     display:grid;
@@ -282,7 +298,7 @@ pre{
 
 <main>
 
-<<section class="hero">
+<section class="hero">
     <div class="card">
         <h2>{{ view.room_guidance.title }}</h2>
         <p class="small">
@@ -324,7 +340,9 @@ pre{
 <section class="card executive-insight">
     <h3>Executive Insight Layer</h3>
     <p class="small">{{ view.executive_insight.executive_signal }}</p>
-
+<a class="export-action" href="{{ view.executive_report_download_url }}">
+    Download Executive Report
+</a>
     <div class="insight-grid">
         {% for kpi in view.executive_insight.kpis %}
         <div class="insight-kpi">
