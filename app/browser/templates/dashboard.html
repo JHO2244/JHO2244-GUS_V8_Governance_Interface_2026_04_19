@@ -192,6 +192,27 @@ pre{
     color:var(--text);
     line-height:1.45;
 }
+.role-switcher{
+    margin-bottom:16px;
+    padding:12px;
+    border-radius:14px;
+    background:rgba(7,17,31,.36);
+    border:1px solid rgba(148,163,184,.14);
+}
+.role-switcher a{
+    color:#bfdbfe;
+    text-decoration:none;
+    font-weight:700;
+}
+.role-switcher a:hover{
+    color:white;
+}
+.export-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:16px;
+}
 .export-action{
     display:inline-block;
     margin-top:16px;
@@ -281,7 +302,7 @@ pre{
     Authority: {{ view.authority }} · Active Role: {{ view.role_session.label }}
 </p>
         </div>
-        <div class="badge">ADVISORY ONLY · VERIFIED COCKPIT</div>
+        <div class="badge">VEHICLE 1 · ADVISORY ONLY · VERIFIED</div>
     </div>
 </header>
 
@@ -289,7 +310,7 @@ pre{
 
 <nav>
 <p class="nav-title">Governance Rooms</p>
-    <div class="small" style="margin-bottom:14px;">
+    <div class="role-switcher small">
     Role:
     <a href="/?role=executive">Executive</a> ·
     <a href="/?role=analyst">Analyst</a> ·
@@ -350,12 +371,14 @@ pre{
 <section class="card executive-insight">
     <h3>Executive Insight Layer</h3>
     <p class="small">{{ view.executive_insight.executive_signal }}</p>
-<a class="export-action" href="{{ view.executive_report_download_url }}">
-    Download Executive Report
-</a>
-<a class="export-action" href="{{ view.branded_report_url }}">
-    Open Branded Print Report
-</a>
+<div class="export-actions">
+    <a class="export-action" href="{{ view.executive_report_download_url }}">
+        Download Executive Report
+    </a>
+    <a class="export-action" href="{{ view.branded_report_url }}">
+        Open Branded Print Report
+    </a>
+</div>
     <div class="insight-grid">
         {% for kpi in view.executive_insight.kpis %}
         <div class="insight-kpi">
