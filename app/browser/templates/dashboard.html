@@ -277,7 +277,9 @@ pre{
     <div class="header-grid">
         <div>
             <h1>{{ view.app_name }} {{ view.version }}</h1>
-            <p class="subtitle">Authority: {{ view.authority }}</p>
+            <p class="subtitle">
+    Authority: {{ view.authority }} · Active Role: {{ view.role_session.label }}
+</p>
         </div>
         <div class="badge">ADVISORY ONLY · VERIFIED COCKPIT</div>
     </div>
@@ -287,6 +289,12 @@ pre{
 
 <nav>
 <p class="nav-title">Governance Rooms</p>
+    <div class="small" style="margin-bottom:14px;">
+    Role:
+    <a href="/?role=executive">Executive</a> ·
+    <a href="/?role=analyst">Analyst</a> ·
+    <a href="/?role=auditor">Auditor</a>
+</div>
 {% for route in view.allowed_routes %}
 <a href="/room/{{ route }}"
 {% if route == view.shell.active_route %}class="active"{% endif %}>
@@ -314,10 +322,12 @@ pre{
         <h3>Runtime Status</h3>
         <p class="small">No backend mutation · no hidden authority · browser presentation only</p>
         <div class="status-stack">
-            <div><strong>Mode:</strong> Advisory</div>
-            <div><strong>State:</strong> Deterministic</div>
-            <div><strong>Authority:</strong> Bound to GIV</div>
-        </div>
+    <div><strong>Mode:</strong> Advisory</div>
+    <div><strong>State:</strong> Deterministic</div>
+    <div><strong>Authority:</strong> Bound to GIV</div>
+    <div><strong>Role:</strong> {{ view.role_session.label }}</div>
+    <div><strong>Focus:</strong> {{ view.role_session.focus }}</div>
+</div>
     </div>
 </section>
 

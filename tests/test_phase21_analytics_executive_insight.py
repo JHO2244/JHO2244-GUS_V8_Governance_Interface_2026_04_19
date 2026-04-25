@@ -35,7 +35,7 @@ def test_phase21_executive_insight_only_attaches_to_metrics_route() -> None:
     metrics_view = build_browser_view_v0_1("metrics")
     home_view = build_browser_view_v0_1("home_dashboard")
 
-    assert metrics_view["version"] == "v0.6"
+    assert metrics_view["version"] == "v0.7"
     assert metrics_view["executive_insight"] is not None
     assert metrics_view["executive_insight"]["kpis"][1]["value"] == "60%"
 
