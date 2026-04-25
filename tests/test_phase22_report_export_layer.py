@@ -22,7 +22,7 @@ def test_phase22_executive_report_text_is_deterministic_and_advisory() -> None:
 def test_phase22_browser_view_exposes_report_download_url() -> None:
     view = build_browser_view_v0_1("metrics")
 
-    assert view["version"] == "v0.7"
+    assert view["version"] == "v0.8"
     assert view["executive_report_download_url"] == "/export/executive-report.txt"
 
 
