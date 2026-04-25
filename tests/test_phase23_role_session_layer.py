@@ -30,7 +30,7 @@ def test_phase23_role_session_accepts_known_roles_and_normalizes_invalid() -> No
 def test_phase23_browser_view_includes_role_session_context() -> None:
     view = build_browser_view_v0_1("metrics", role_name="auditor")
 
-    assert view["version"] == "v0.7"
+    assert view["version"] == "v0.8"
     assert view["role_session"]["active_role"] == "auditor"
     assert view["role_session"]["label"] == "Auditor"
     assert view["role_session"]["mode"] == "PRESENTATION_ONLY_ROLE_CONTEXT"

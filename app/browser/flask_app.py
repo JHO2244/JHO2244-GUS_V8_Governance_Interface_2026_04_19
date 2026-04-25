@@ -1,12 +1,15 @@
 """
 GUS v8 Governance Interface
-Browser Cockpit Boundary v0.5
+Browser Cockpit Boundary v0.6
 """
 
 from flask import Flask, Response, render_template, request
 
 from app.screens.analytics.executive_insight_model import (
     build_executive_insight_model_v0_1,
+)
+from app.screens.export.branded_report_model import (
+    build_branded_report_model_v0_1,
 )
 from app.screens.export.executive_report_exporter import (
     build_executive_report_text_v0_1,
@@ -53,7 +56,7 @@ ROOM_GUIDANCE = {
     "metrics": {
         "title": "Metrics Room",
         "purpose": "Review governance telemetry and decision distribution signals.",
-        "next_step": "Download the Executive Report or begin the next case workflow.",
+        "next_step": "Download the Executive Report or open the branded print report.",
     },
 }
 
@@ -100,7 +103,7 @@ def build_browser_view_v0_1(
 
     return {
         "app_name": "GUS Governance Interface",
-        "version": "v0.7",
+        "version": "v0.8",
         "authority": "GUS v7 Governance Integrity Vehicle (GIV)",
         "shell": shell,
         "allowed_routes": contract["allowed_routes"],
@@ -108,6 +111,7 @@ def build_browser_view_v0_1(
         "display_panels": build_display_panels_v0_1(shell),
         "executive_insight": build_executive_insight_for_route_v0_1(active_route),
         "executive_report_download_url": "/export/executive-report.txt",
+        "branded_report_url": "/export/branded-report",
         "role_session": build_role_session_model_v0_1(role_name),
     }
 
@@ -140,6 +144,12 @@ def executive_report_download():
             )
         },
     )
+
+
+@app.route("/export/branded-report")
+def branded_report():
+    report = build_branded_report_model_v0_1()
+    return render_template("branded_report.html", report=report)
 
 
 if __name__ == "__main__":
